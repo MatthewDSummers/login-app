@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta charset="UTF-8">
+        <title>Login to Dojo Quotes</title>
+        <meta name="description" content="This is the exam!">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+        {% load static %}
+        <link rel='stylesheet' type='text/css' href="{% static 'style.css' %}">
+        <style>
+            @import url('https://fonts.googleapis.com/css2?family=Josefin+Slab:wght@500&display=swap');
+        </style>
+    </head>
+    <body> 
+        <div class="container">
+            {% if messages %}
+                {% if "success" in request.session.message_status %}
+                <div class="col-12" id="success-new">
+                    <ul class = "success-ul">
+                    <p class="success-p">&#9888;</p>
+                        {% for message in messages %}
+                            <li>{{ message }}</li>
+                        {% endfor %}
+                    </ul>
+                </div> 
+
+                {% else %}
+                
+                <div class="col-12" id="errors-new">
+                    <ul class = "errors-ul">
+                    <p class="error-p">&#9888;</p>
+                        {% for message in messages %}
+                            <li>{{ message }}</li>
+                        {% endfor %}
+                    </ul>
+                </div> 
+                {% endif %}
+            {% endif %}
+
+            <div class="row">
+                <div id="content-1" class="col-lg-5">
+                    <h1>Registration</h1>
+                    <form action="/users/register" method="POST">
+                    {% csrf_token %}
+                        <label for="first_name">First Name</label>
+                        <input type="text" name="first_name" class="form-control ">
+                        
+                        <label for="last_name">Last Name</label>
+                        <input type="text" name="last_name" class="form-control ">
+                        
+                        <label for="email">Email</label>
+                        <input type="text" name="email" class="form-control ">
+                        
+                        <label for="password">Password</label>
+                        <input type="password" name="password" class="form-control ">
+                        
+                        <label for="confirm_password">Confirm Password</label>
+                        <input type="password" name="confirm_password" class="form-control ">
+                        
+                        <button type="submit"  class="btn-block" style="font-size: 30px;">Create account</button>
+                    </form>
+                </div>
+                <div id="content-2" class="col-lg-3">
+                    <h1>Login</h1>
+                    <form action="users/login" method="POST" id="login">
+                        {% csrf_token %}
+                        <label for="email">Email</label>
+                        <input type="text" name="email" id="email" class="form-control ">
+                        
+                        <label for="password">Password</label>
+                        <input type="password" name="password" id="password" class="form-control ">
+                        
+                        <button type="submit" class="btn-lg" style="font-size: 20px;">Login</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
